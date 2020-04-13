@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+package    = tcf-agent
+arch      ?= $(shell uname -m | sed -e s/arm.*/arm/ -e s/aarch64.*/arm64/)
+deb_arch  ?= $(shell dpkg --print-architecture)
+srcdir     = org.eclipse.tcf.agent/agent
+docdir     = debian/tmp/usr/share/doc/$(package)
+systemd    = debian/tmp/lib/systemd/system 
+
+clean:
+	rm -f build
+	-$(MAKE) -C $(srcdir) clean
+	rm -rf debian/tmp debian/*~ debian/files* debian/substvars
+
+build:
+	$(MAKE) -C $(srcdir) all
+	touch build
+
+binary-indep: build
+
+binary-arch: build
+	rm -rf debian/tmp
+	install -d debian/tmp/DEBIAN $(docdir) $(systemd)
+	$(MAKE) -C $(srcdir) INSTALLROOT=$(CURDIR)/debian/tmp arch=$(arch) install
+	cp -a debian/copyright      $(docdir)
+	cp -a debian/changelog      $(docdir)/changelog.Debian
+	cp -a ChangeLog             $(docdir)/changelog
+	cd $(docdir) && gzip -9 changelog changelog.Debian
+	dpkg-gencontrol -DArchitecture=$(deb_arch)
+	cp -a debian/postinst       debian/tmp/DEBIAN
+	cp -a debian/prerm          debian/tmp/DEBIAN
+	cp -a debian/postrm         debian/tmp/DEBIAN
+	install -m 644 systemd/tcf-agent.service $(systemd)
+	chown -R root:root debian/tmp
+	chmod -$ u+w,go=rX debian/tmp
+	dpkg-deb --build debian/tmp .
+
+binary: binary-indep binary-arch
+

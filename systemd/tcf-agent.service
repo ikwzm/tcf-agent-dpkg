@@ -1,0 +1,15 @@
+[Unit]
+Description = Target Communication Framework agent
+
+[Service]
+Type       = forking
+ExecStart  = /etc/init.d/tcf-agent start
+ExecStop   = /etc/init.d/tcf-agent stop
+ExecReload = /etc/init.d/tcf-agent restart
+Restart    = always
+PIDFile    = /var/run/tcf-agent.pid
+
+
+[Install]
+WantedBy = multi-user.target
+

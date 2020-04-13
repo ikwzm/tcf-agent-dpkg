@@ -1,0 +1,14 @@
+Source: tcf-agent
+Section: network
+Priority: optional
+Maintainer: ikwzm <ichiro_k@ca2.so-net.ne.jp>
+Build-Depends: debhelper (>= 9), bzip2
+Standards-Version: 3.9.6
+Homepage: <https://github.com/ikwzm/tcf-agent-dpkg>
+
+Package: tcf-agent
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Target Communication Framework agent
+
+

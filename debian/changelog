@@ -1,0 +1,12 @@
+tcf-agent (1.7.0-1) unstable; urgency=low
+
+  * Update org.eclipse.tcf.agent to "a2d6350736012bc0e296e78be60f4e9bb22c7fee"
+
+ -- ikwzm <ichiro_k@ca2.so-net.ne.jp>  Mon, 13 Apr 2020 16:00:00 +0900
+
+tcf-agent (1.7.0-0) unstable; urgency=low
+
+  * Update org.eclipse.tcf.agent to 1.7.0 
+
+ -- ikwzm <ichiro_k@ca2.so-net.ne.jp>  Mon, 13 Apr 2020 15:00:00 +0900
+
