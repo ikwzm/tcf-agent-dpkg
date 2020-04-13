@@ -1,0 +1,3 @@
+[submodule "org.eclipse.tcf.agent"]
+	path = org.eclipse.tcf.agent
+	url = git://git.eclipse.org/gitroot/tcf/org.eclipse.tcf.agent.git
